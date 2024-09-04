@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作文评价系统</title>
+    <style>
+        body {
+            font-family: STxingkai;
+            background-image: url(../static/background.png);
+            background-size: 1440px 745px;
+            font-size: 18px;
+            /*font-size: 18px;*/
+        }
+
+        .selected {
+            color: #B05923 !important;
+            font-weight: bold;
+            background-color: #E3FDCD !important;
+        }
+
+        h1 {
+            font-size: 48px;
+            width: 100%;
+            height: 60px;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+        }
+
+        .function-button {
+            width: 110px;
+            height: 80px;
+            margin-bottom: 10px;
+            background-size: cover;
+            text-align: center;
+            line-height: 50px;
+            font-size: 20px;
+            font-family: STxingkai;
+            /*background-color: #E3FDCD;*/
+            background-color: rgba(227, 254, 205, 0.3); /* 设置背景颜色透明度，数值从0到1，1为完全不透明 */
+            color: #00367C;
+            border: none;
+            cursor: pointer;
+        }
+
+        textarea {
+            width: 600px;
+            height: 130px;
+            font-size: 16px;
+            padding: 5px;
+            /*border-color: #ef9586;*/
+           border-width: 3.2px;
+            border-style: solid;
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.75); /* 设置背景颜色透明度，数值从0到1，1为完全不透明 */
+        }
+        button {
+            font-size: 16px;
+            padding: 5px 10px;
+			background-color: white;
+			margin-left: 7px;
+			width: 100px;
+			height: 50px;
+			border-radius: 25px;
+            border-color: #ef9586 ;
+			border-width: 3px;
+			border-style:solid;
+        }
+        button:hover{
+			background-color: #cf9566;
+			margin-left: 7px;
+			border-radius: 25px;
+            border-color: #df5050 ;
+			border-width: 3px;
+			border-style:solid;
+		}
+        .imgaeframe {
+            width: 100%;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .imgae {
+            width: 80px;
+            height: 80px;
+            background-image: url('../static/logo.png');
+            background-size: 80px 80px;
+            margin-right: 10px; /* 如果需要在logo和标题之间增加一些间隔，可以调整这个值 */
+        }
+
+        .textareaframe {
+            width: 100%;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+        .logo-and-text-container {
+            display: flex;
+            align-items: center;
+            margin-right: 10px; /* 如果需要在logo和标题之间增加一些间隔，可以调整这个值 */
+        }
+        .hcqStyle1{
+            color:hsl(230,70%,80%);
+            text-shadow:0 0 1px currentColor,/*highlight*/-1px -1px 1px hsl(125,60%,30%),0 -1px 1px hsl(184,80%,55%),1px -1px 1px hsl(184,80%,50%),/*light shadow*/1px 1px 1px hsl(184,80%,10%),0 1px 1px hsl(184,80%,10%),-1px 1px 1px hsl(184,80%,10%),/*outline*/-2px -2px 1px hsl(184,80%,15%),-1px -2px 1px hsl(184,80%,15%),0 -2px 1px hsl(184,80%,15%),1px -2px 1px hsl(184,80%,15%),2px -2px 1px hsl(184,80%,15%),2px -1px 1px hsl(184,80%,15%),2px 0 1px hsl(184,80%,15%),2px 1px 1px hsl(184,80%,15%),-2px 0 1px hsl(184,80%,15%),-2px -1px 1px hsl(184,80%,15%),-2px 1px 1px hsl(184,80%,15%),/*dark shadow*/2px 2px 2px hsl(184,80%,5%),1px 2px 2px hsl(184,80%,5%),0 2px 2px hsl(184,80%,5%),-1px 2px 2px hsl(184,80%,5%),-2px 2px 2px hsl(184,80%,5%)}
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            /* 控制按钮距离上方的间距 */
+        }
+
+        .score-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .score-circle {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background-color: #cf9566;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .comment-output {
+            width: 1200px;
+            height: 200px;
+            padding: 10px;
+            font-size: 18px;
+            border-color: #ef9586;
+            border-width: 3.2px;
+            border-style: solid;
+            border-radius: 15px;
+        }
+
+        #chinese-essay {
+            background-image: url(../static/chinese_essay.png);
+        }
+
+        #english-essay {
+            background-image: url(../static/english_essay.png);
+        }
+
+        #chinese-translation {
+            background-image: url(../static/chinese_translation.png);
+        }
+
+        #english-translation {
+            background-image: url(../static/english-translation.png);
+        }
+
+        #text-expansion {
+            background-image: url(../static/text-expansion.png);
+        }
+
+        #text-abbreviation {
+            background-image: url(../static/text-abbreviation.png);
+        }
+        #score-circle {
+            font-size: 20px; /* 设置字体大小为24像素 */
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="imgaeframe" style="font-family:Simsun">
+    <div class="logo-and-text-container">
+        <div class="imgae"></div>
+        <h1 class="hcqStyle1">文本自动评分系统</h1>
+    </div>
+</div>
+
+
+    <div class="container">
+
+        <div style="float:left; width: 200px;">
+            <button class="function-button" id="chinese-essay">中文作文</button>
+            <button class="function-button" id="english-essay">英文作文</button>
+            <button class="function-button" id="chinese-translation">中译英</button>
+            <button class="function-button" id="english-translation">英译中</button>
+            <button class="function-button" id="text-expansion">文本扩写</button>
+            <button class="function-button" id="text-abbreviation">文本缩写</button>
+        </div>
+        <div style="float:left; margin-left: 20px;">
+            <div style="display: flex; margin-bottom: 10px;">
+                <div style="margin-right: 20px;">
+                    <label for="request-text">请在下方输入文本要求：</label><br>
+                    <textarea id="request-text" rows="5" cols="50" placeholder="输入作文题目，翻译、扩缩句原文等"></textarea>
+                </div>
+                <div>
+                    <label for="essay-text">请在下方写入正文：</label><br>
+                    <textarea id="essay-text" rows="5" cols="50" placeholder="输入你的文本"></textarea>
+                </div>
+            </div>
+
+            <div class="button-container">
+            <button id="evaluate-button">评价</button><br><br>
+            </div>
+
+
+    <div class="score-container">
+        <div class="score-circle" id="score-circle">分数</div>
+        <div class="comment-output" id="comment-output"></div>
+    </div>
+        </div>
+    </div>
+
+     <script>
+        const functionButtons = document.querySelectorAll('.function-button');
+        const requestText = document.getElementById('request-text');
+        const essayText = document.getElementById('essay-text');
+        const evaluateButton = document.getElementById('evaluate-button');
+        const scoreCircle = document.getElementById('score-circle');
+        const commentOutput = document.getElementById('comment-output');
+        let selectedFunction = null;
+
+        function selectFunction(event) {
+            if (selectedFunction) {
+                selectedFunction.classList.remove('selected');
+            }
+            selectedFunction = event.target;
+            selectedFunction.classList.add('selected');
+        }
+
+        function evaluate() {
+            if (!selectedFunction) {
+                alert('请选择一个功能！');
+                return;
+            }
+            const functionChoice = Array.from(functionButtons).indexOf(selectedFunction) + 1;
+            const formData = new FormData();
+            formData.append('request_text', requestText.value);
+            formData.append('essay_text', essayText.value);
+            formData.append('function_choice', functionChoice);
+
+            // 使用fetch向后端发送POST请求
+            fetch('/evaluate', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 更新得分和评语
+                scoreCircle.textContent = data.score;
+                commentOutput.textContent = data.comment;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // 处理错误情况，例如显示错误提示给用户
+            });
+        }
+
+        functionButtons.forEach(button => {
+            button.addEventListener('click', selectFunction);
+        });
+
+        evaluateButton.addEventListener('click', evaluate);
+    </script>
+
+</body>
+
+</html>
